@@ -1,0 +1,426 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* DSA Tracker Design System - Dark theme with amber/orange accents */
+
+@layer base {
+  :root {
+    --background: 20 14% 4%;
+    --foreground: 40 20% 95%;
+
+    --card: 20 14% 7%;
+    --card-foreground: 40 20% 95%;
+
+    --popover: 20 14% 7%;
+    --popover-foreground: 40 20% 95%;
+
+    --primary: 33 100% 50%;
+    --primary-foreground: 20 14% 4%;
+
+    --secondary: 20 10% 12%;
+    --secondary-foreground: 40 20% 95%;
+
+    --muted: 20 10% 15%;
+    --muted-foreground: 40 10% 60%;
+
+    --accent: 33 90% 45%;
+    --accent-foreground: 20 14% 4%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 40 20% 95%;
+
+    --success: 142 76% 36%;
+    --success-foreground: 40 20% 95%;
+
+    --warning: 45 93% 47%;
+    --warning-foreground: 20 14% 4%;
+
+    --easy: 142 76% 36%;
+    --easy-foreground: 40 20% 95%;
+    
+    --medium: 45 93% 47%;
+    --medium-foreground: 20 14% 4%;
+    
+    --hard: 0 72% 51%;
+    --hard-foreground: 40 20% 95%;
+
+    --border: 20 10% 18%;
+    --input: 20 10% 18%;
+    --ring: 33 100% 50%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 20 14% 6%;
+    --sidebar-foreground: 40 20% 95%;
+    --sidebar-primary: 33 100% 50%;
+    --sidebar-primary-foreground: 20 14% 4%;
+    --sidebar-accent: 20 10% 12%;
+    --sidebar-accent-foreground: 40 20% 95%;
+    --sidebar-border: 20 10% 15%;
+    --sidebar-ring: 33 100% 50%;
+
+    --gradient-primary: linear-gradient(135deg, hsl(33 100% 50%), hsl(25 100% 45%));
+    --gradient-card: linear-gradient(180deg, hsl(20 14% 8%), hsl(20 14% 5%));
+    --shadow-glow: 0 0 30px -5px hsl(33 100% 50% / 0.3);
+    --shadow-card: 0 4px 24px -4px hsl(0 0% 0% / 0.5);
+  }
+
+  .dark {
+    --background: 20 14% 4%;
+    --foreground: 40 20% 95%;
+
+    --card: 20 14% 7%;
+    --card-foreground: 40 20% 95%;
+
+    --popover: 20 14% 7%;
+    --popover-foreground: 40 20% 95%;
+
+    --primary: 33 100% 50%;
+    --primary-foreground: 20 14% 4%;
+
+    --secondary: 20 10% 12%;
+    --secondary-foreground: 40 20% 95%;
+
+    --muted: 20 10% 15%;
+    --muted-foreground: 40 10% 60%;
+
+    --accent: 33 90% 45%;
+    --accent-foreground: 20 14% 4%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 40 20% 95%;
+
+    --border: 20 10% 18%;
+    --input: 20 10% 18%;
+    --ring: 33 100% 50%;
+
+    --sidebar-background: 20 14% 6%;
+    --sidebar-foreground: 40 20% 95%;
+    --sidebar-primary: 33 100% 50%;
+    --sidebar-primary-foreground: 20 14% 4%;
+    --sidebar-accent: 20 10% 12%;
+    --sidebar-accent-foreground: 40 20% 95%;
+    --sidebar-border: 20 10% 15%;
+    --sidebar-ring: 33 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+
+  code, .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+@layer components {
+  .progress-bar {
+    @apply relative h-2 w-full overflow-hidden rounded-full bg-muted;
+  }
+  
+  .progress-bar-fill {
+    @apply h-full rounded-full transition-all duration-500 ease-out;
+    background: var(--gradient-primary);
+  }
+  
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-lg;
+  }
+  
+  .card-hover:hover {
+    box-shadow: var(--shadow-glow);
+  }
+  
+  .difficulty-easy {
+    background-color: hsl(var(--easy) / 0.2);
+    color: hsl(var(--easy));
+    border: 1px solid hsl(var(--easy) / 0.3);
+  }
+  
+  .difficulty-medium {
+    background-color: hsl(var(--medium) / 0.2);
+    color: hsl(var(--medium));
+    border: 1px solid hsl(var(--medium) / 0.3);
+  }
+  
+  .difficulty-hard {
+    background-color: hsl(var(--hard) / 0.2);
+    color: hsl(var(--hard));
+    border: 1px solid hsl(var(--hard) / 0.3);
+  }
+  
+  .stat-card {
+    background: var(--gradient-card);
+    box-shadow: var(--shadow-card);
+  }
+  
+  .glow-text {
+    text-shadow: 0 0 20px hsl(33 100% 50% / 0.5);
+  }
+
+  .dsa-block {
+    @apply rounded-lg border border-border bg-muted/30 p-4 my-4;
+  }
+
+  .dsa-block-title {
+    @apply text-sm uppercase tracking-wide text-muted-foreground mb-2;
+  }
+
+  .dsa-block-body pre {
+    @apply rounded-md bg-background/60 border border-border p-3 text-sm font-mono whitespace-pre-wrap;
+    min-height: 48px;
+  }
+
+  .dsa-block-body {
+    @apply transition-all duration-200 ease-out;
+    max-height: 240px;
+    overflow: hidden;
+  }
+
+  .dsa-block:hover .dsa-block-body {
+    max-height: 520px;
+  }
+
+  .dsa-array {
+    @apply border-l-4 border-primary/60;
+  }
+
+  .dsa-linked-list {
+    @apply border-l-4 border-success/60;
+  }
+
+  .dsa-tree {
+    @apply border-l-4 border-accent/60;
+  }
+
+  .dsa-graph {
+    @apply border-l-4 border-warning/60;
+  }
+
+  .dsa-dry-run {
+    @apply border-l-4 border-secondary/60;
+  }
+
+  .dsa-complexity {
+    @apply border-l-4 border-muted-foreground/60;
+  }
+
+  .dsa-pseudocode {
+    @apply border-l-4 border-primary/40;
+  }
+
+  .dsa-insights {
+    @apply border-l-4 border-success/40;
+  }
+
+  .dsa-edge-cases {
+    @apply border-l-4 border-destructive/50;
+  }
+
+  .dsa-note-block-wrapper {
+    @apply rounded-xl border border-border bg-card p-4 transition-all duration-200;
+  }
+
+  .dsa-note-block-wrapper:hover {
+    @apply shadow-lg;
+    transform: translateY(-1px);
+  }
+
+  .dsa-note-block {
+    @apply space-y-2;
+  }
+
+  .dsa-array-box {
+    @apply rounded-md border border-border bg-background/70 px-3 py-2 text-sm min-w-[64px] text-center;
+  }
+
+  .dsa-node-box {
+    @apply rounded-md border border-border bg-background/70 px-3 py-2 text-sm text-center min-w-[72px];
+  }
+
+  .dsa-notes-editor {
+    @apply rounded-xl border border-border bg-background;
+  }
+
+  .dsa-notes-editor__content {
+    @apply min-h-[220px] p-4 text-sm;
+  }
+
+  .dsa-notes-editor__content .ProseMirror {
+    @apply outline-none min-h-[220px] space-y-3;
+  }
+
+  .dsa-notes-editor__content h2 {
+    @apply text-xl font-semibold;
+  }
+
+  .dsa-notes-editor__content h3 {
+    @apply text-lg font-semibold;
+  }
+
+  .dsa-notes-editor__content ul {
+    @apply list-disc pl-5;
+  }
+
+  .dsa-notes-editor__content ol {
+    @apply list-decimal pl-5;
+  }
+
+  .dsa-notes-editor__content pre {
+    @apply rounded-lg bg-muted/60 p-3 overflow-x-auto text-xs;
+  }
+
+  .diagram-node {
+    @apply rounded-lg border border-border bg-background shadow-sm px-3 py-2 min-w-[110px] relative;
+  }
+
+  .diagram-node--selected {
+    @apply ring-2 ring-primary/50;
+  }
+
+  .diagram-node__input {
+    @apply w-full bg-transparent text-center text-sm outline-none;
+  }
+
+  .diagram-node__add {
+    @apply absolute -top-2 -right-2 h-6 w-6 rounded-full bg-primary text-primary-foreground text-xs flex items-center justify-center shadow;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+  }
+
+  .diagram-node:hover .diagram-node__add {
+    opacity: 1;
+  }
+
+  .diagram-node__handles {
+    @apply mt-2 flex items-center justify-between text-[10px] text-muted-foreground;
+  }
+
+  .diagram-node__handle-dot {
+    @apply inline-block h-2 w-2 rounded-full bg-muted-foreground/60;
+  }
+
+  .diagram-node__flow-handles {
+    @apply absolute inset-0;
+  }
+
+  .flipbook {
+    @apply w-full flex justify-center;
+    perspective: 1400px;
+  }
+
+  .flipbook__page {
+    @apply relative w-full max-w-3xl min-h-[360px];
+  }
+
+  .flipbook__page-inner {
+    @apply relative w-full h-full rounded-2xl overflow-hidden border border-border bg-background;
+    transform-style: preserve-3d;
+    transition: transform 0.6s ease;
+  }
+
+  .flipbook__page--flip .flipbook__page-inner {
+    transform: rotateY(-180deg);
+  }
+
+  .flipbook__page-front,
+  .flipbook__page-back {
+    @apply absolute inset-0 p-6;
+    backface-visibility: hidden;
+  }
+
+  .flipbook__page-front {
+    @apply bg-card;
+  }
+
+  .flipbook__page-back {
+    @apply bg-card;
+    transform: rotateY(180deg);
+  }
+
+  .coin-hud {
+    @apply fixed right-4 top-4 z-[70] flex items-center gap-2 rounded-full bg-amber-400 text-amber-950 px-3 py-2 shadow-lg select-none transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-xl;
+  }
+
+  .coin-hud__icon {
+    @apply h-8 w-8 rounded-full bg-amber-200/80 flex items-center justify-center;
+  }
+
+  .coin-hud__value {
+    @apply font-semibold text-sm tracking-wide;
+  }
+
+  .coin-fly {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 80;
+    pointer-events: none;
+    animation: coin-fly 0.85s ease forwards;
+  }
+
+  .coin-fly__bubble {
+    @apply rounded-full bg-amber-300 text-amber-950 px-3 py-1 text-xs font-semibold shadow-md;
+  }
+}
+
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: hsl(var(--muted)) transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted));
+    border-radius: 3px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground));
+  }
+}
+
+@keyframes coin-pop {
+  0% {
+    transform: translateY(0) scale(0.9);
+    opacity: 0;
+  }
+  20% {
+    transform: translateY(-6px) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-26px) scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes coin-fly {
+  0% {
+    transform: translate(var(--from-x), var(--from-y)) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--to-x), var(--to-y)) scale(0.4);
+    opacity: 0;
+  }
+}
