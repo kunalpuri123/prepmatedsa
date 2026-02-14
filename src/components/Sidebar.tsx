@@ -18,7 +18,8 @@ import {
   ChevronRight,
   ShoppingBag,
   Network,
-  Share2
+  Share2,
+  ListChecks
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
@@ -41,6 +42,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ onLogout, userName }) => {
   const navItems = [
     { path: '/', label: 'Dashboard', icon: LayoutDashboard },
     { path: '/problems', label: 'All Problems', icon: BookOpen },
+    { path: '/neetcode250', label: 'NeetCode 250', icon: ListChecks },
     { path: '/planner', label: 'Day Planner', icon: Calendar },
     { path: '/calendar', label: 'Calendar', icon: Calendar },
     { path: '/revision', label: 'Revision Sheet', icon: Star },

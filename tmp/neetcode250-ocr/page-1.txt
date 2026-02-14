@@ -1,0 +1,43 @@
+a Courses Practice Roadmap Pro % Signin
+Menu € Algorithms & Advanced System Design < February 2026
+Data Structures Algorithms for Beginners
+. Day 14 left
+= Practice for Beginners
+= Ss M T W T FS
+f Company Tagged
+1 2 3 4 5 € 7
+t Quizzes 8 9 10 11 12 13 ©)
+= Core Skills % NeetCode 250 ~ %¥€ System Design yY yyreyégy, iiY:Ct*#f
+eo The Neetcode 250 is the Neetcode 150 Easy 0/60 e fe) Current Streak Best Streak
+plus 100 more problems. It's the most /250
+beginner friendly list, intended for people MEtS Wilks e © Oaays BY Oaays
+completely new to algorithms. Hard 0/35
+e @ Solve one problem a day to keep your streak
+Q v & xs w ?
+Sign in to see your ranking
+Array 269 String 112 Hash Table 102 Depth-First Search 84 Dynamic Programming 78 Expand v
+“za Arrays & Hashing 0/22 EEE
+Status Star Problem $ Difficulty + Solution
+wW Concatenation of Array Easy =)
+wW Contains Duplicate Easy 6
+wW Valid Anagram Easy =)
+WwW Two Sum Easy |=]
+WwW Longest Common Prefix Easy 5
+wW Group Anagrams Medium B
+wW Remove Element Easy =)
+WwW Majority Element Easy =)
+wW Design HashSet Easy =)
+WwW Design HashMap Easy =)
+wW Sort an Array Medium =)
+WwW Sort Colors Medium =)
+wW Top K Frequent Elements Medium =)
+vw Encode and Decode Strings Medium |=]
+wW Range Sum Query 2D Immutable Medium =)
+vw Product of Array Except Self Medium |=]
+ire Valid Sudoku Medium =)
+wW Longest Consecutive Sequence Medium |=]
+wW Best Time to Buy And Sell Stock II Medium =)
+vw Majority Element II Medium =)
+WwW Subarray Sum Equals K Medium |=]
+wW First Missing Positive Hard =)
+ee lF=

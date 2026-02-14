@@ -1,0 +1,38 @@
+& Courses Practice Roadmap Pro Signin
+Menu € Algorithms & Advanced System Design < February 2026
+Data Structures Algorithms for Beginners
+1= Practice _ for Beginners Dey tert
+| Ss oM T W T F 5
+A Company Tagged
+# Quizzes , ()
+= Core Skills % NeetCode250 ~ % System Design > o »> A é
+@ The Neetcode 250 is the Neetcode 150 Easy 0/60 d ie neste
+beginer only Ia iendd peopl wea onss (| Orso | 1% ams | Oven
+completely new to algorithms. Hard 0/35 . > ;
+Q v 8 By w 2
+Sign in to see your ranking
+Array 269 String 112 Hash Table 102 Depth-First Search 84 Dynamic Programming 78 Expand v
+Status Star Problem $ Difficulty + Solution
+id Concatenation of Array Easy 6
+Ww Contains Duplicate Easy 6
+wv Valid Anagram Easy 6
+Ww Two Sum Easy 6
+wv Longest Common Prefix Easy 6
+w Group Anagrams Medium 6
+w Remove Element Easy 6
+wv Majority Element Easy 5
+yw Design HashSet Easy 6
+Ww Design HashMap Easy 6
+wy Sort an Array Medium B
+Ww Sort Colors Medium 6
+wv Top K Frequent Elements Medium 6
+wy Encode and Decode Strings Medium 6
+w Range Sum Query 2D Immutable Medium 6
+id Product of Array Except Self Medium 6
+Ww Valid Sudoku Medium 6
+wy Longest Consecutive Sequence Medium 6
+Ww Best Time to Buy And Sell Stock II Medium 6
+wv Majority Element II Medium 6
+w Subarray Sum Equals K Medium 6
+wv First Missing Positive Hard 6
+nT

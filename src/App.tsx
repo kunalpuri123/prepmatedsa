@@ -18,6 +18,7 @@ import NotFound from "./pages/NotFound";
 import Store from "./pages/Store";
 import SystemDesign from "./pages/SystemDesign";
 import LearnInPublic from "./pages/LearnInPublic";
+import Neetcode250 from "./pages/Neetcode250";
 
 const queryClient = new QueryClient();
 
@@ -30,6 +31,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/problems" element={<Problems />} />
+          <Route path="/neetcode250" element={<Neetcode250 />} />
           <Route path="/planner" element={<Planner />} />
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/revision" element={<Revision />} />

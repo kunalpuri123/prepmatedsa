@@ -8,12 +8,13 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Play, Pause, RotateCcw, Calendar, Target, ArrowUp, ArrowDown } from 'lucide-react';
 import { PlannerState, ProblemProgress } from '@/hooks/useDSAProgress';
 import { dsaTopics, getAllProblems, Problem } from '@/data/dsaProblems';
+import { getNeetcode250AllProblems, neetcode250Topics } from '@/data/neetcode250';
 import { ProblemRow } from './ProblemRow';
 
 interface DayPlannerProps {
   planner: PlannerState;
   progress: Record<string, ProblemProgress>;
-  onGeneratePlan: (options: { totalDays: number; topicIds: string[]; topicOrder: 'listed' | 'az' | 'za' | 'custom'; sequence: 'default' | 'easy' | 'hard' | 'random' }) => void;
+  onGeneratePlan: (options: { totalDays: number; topicIds: string[]; topicOrder: 'listed' | 'az' | 'za' | 'custom'; sequence: 'default' | 'easy' | 'hard' | 'random'; sheet?: 'dsa' | 'nc250' }) => void;
   onPausePlan: () => void;
   onResumePlan: () => void;
   onResetPlan: () => void;
@@ -38,6 +39,7 @@ export const DayPlanner: React.FC<DayPlannerProps> = ({
   userId,
 }) => {
   const [daysInput, setDaysInput] = useState('30');
+  const [sheet, setSheet] = useState<'dsa' | 'nc250'>('dsa');
   const [selectedTopicIds, setSelectedTopicIds] = useState<string[]>(['all']);
   const [topicOrder, setTopicOrder] = useState<'listed' | 'az' | 'za' | 'custom'>('listed');
   const [sequence, setSequence] = useState<'default' | 'easy' | 'hard' | 'random'>('default');
@@ -45,11 +47,18 @@ export const DayPlanner: React.FC<DayPlannerProps> = ({
   const [spreadDays, setSpreadDays] = useState(3);
   const [isTopicsOpen, setIsTopicsOpen] = useState(false);
 
-  const allProblems = getAllProblems();
+  const topics = sheet === 'nc250' ? neetcode250Topics : dsaTopics;
+  const allProblems = sheet === 'nc250' ? getNeetcode250AllProblems() : getAllProblems();
   const parsedDays = Math.max(7, Math.min(365, parseInt(daysInput, 10) || 30));
   const selectedTopicProblems = selectedTopicIds.includes('all')
     ? allProblems
-    : dsaTopics.filter(t => selectedTopicIds.includes(t.id)).flatMap(t => t.patterns.flatMap(p => p.problems));
+    : topics.filter(t => selectedTopicIds.includes(t.id)).flatMap(t => t.patterns.flatMap(p => p.problems));
+
+  // When showing an active plan, we might be looking at either sheet depending on the problem ids.
+  const planProblemsMap = [...getAllProblems(), ...getNeetcode250AllProblems()].reduce((acc, p) => {
+    acc[p.id] = p;
+    return acc;
+  }, {} as Record<string, Problem>);
   const problemsMap = allProblems.reduce((acc, p) => {
     acc[p.id] = p;
     return acc;
@@ -57,10 +66,11 @@ export const DayPlanner: React.FC<DayPlannerProps> = ({
 
   const today = new Date().toISOString().split('T')[0];
   const currentDayPlan = planner.dayPlans.find(p => p.date === today);
-  const todayProblems = currentDayPlan?.problems.map(id => problemsMap[id]).filter(Boolean) || [];
+  const activeProblemsMap = planner.isActive ? planProblemsMap : problemsMap;
+  const todayProblems = currentDayPlan?.problems.map(id => activeProblemsMap[id]).filter(Boolean) || [];
   const selectedDayPlan = planner.dayPlans.find(p => p.date === missedDate);
   const missedProblems = selectedDayPlan
-    ? selectedDayPlan.problems.filter(id => !progress[id]?.completed).map(id => problemsMap[id]).filter(Boolean)
+    ? selectedDayPlan.problems.filter(id => !progress[id]?.completed).map(id => activeProblemsMap[id]).filter(Boolean)
     : [];
 
   const getDayStatus = (dayPlan: typeof planner.dayPlans[0]) => {
@@ -92,6 +102,26 @@ export const DayPlanner: React.FC<DayPlannerProps> = ({
           
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
+              <label className="text-sm font-medium mb-2 block">Sheet</label>
+              <Select
+                value={sheet}
+                onValueChange={(value) => {
+                  const next = value as 'dsa' | 'nc250';
+                  setSheet(next);
+                  setSelectedTopicIds(['all']);
+                  setTopicOrder('listed');
+                }}
+              >
+                <SelectTrigger className="bg-background">
+                  <SelectValue placeholder="Select sheet" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="dsa">All Problems</SelectItem>
+                  <SelectItem value="nc250">NeetCode 250</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div>
               <label className="text-sm font-medium mb-2 block">Topics</label>
               <DropdownMenu open={isTopicsOpen} onOpenChange={setIsTopicsOpen}>
                 <DropdownMenuTrigger asChild>
@@ -116,7 +146,7 @@ export const DayPlanner: React.FC<DayPlannerProps> = ({
                     All Topics
                   </DropdownMenuCheckboxItem>
                   <DropdownMenuSeparator />
-                  {dsaTopics.map(topic => {
+                  {topics.map(topic => {
                     const checked = selectedTopicIds.includes(topic.id);
                     return (
                       <DropdownMenuCheckboxItem
@@ -166,7 +196,7 @@ export const DayPlanner: React.FC<DayPlannerProps> = ({
                   <span className="text-sm font-medium">All Topics</span>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                  {dsaTopics.map(topic => {
+                  {topics.map(topic => {
                     const checked = selectedTopicIds.includes(topic.id);
                     return (
                       <label key={topic.id} className="flex items-center gap-2 text-sm cursor-pointer">
@@ -211,7 +241,7 @@ export const DayPlanner: React.FC<DayPlannerProps> = ({
               <div className="text-sm font-medium mb-2">Custom Topic Order</div>
               <div className="space-y-2">
                 {selectedTopicIds.map((id, index) => {
-                  const topic = dsaTopics.find(t => t.id === id);
+                  const topic = topics.find(t => t.id === id);
                   if (!topic) return null;
                   return (
                     <div key={id} className="flex items-center justify-between gap-2 rounded-md border border-border px-3 py-2 text-sm">
@@ -293,7 +323,7 @@ export const DayPlanner: React.FC<DayPlannerProps> = ({
           </div>
           
           <Button 
-            onClick={() => onGeneratePlan({ totalDays: parsedDays, topicIds: selectedTopicIds, topicOrder, sequence })}
+            onClick={() => onGeneratePlan({ totalDays: parsedDays, topicIds: selectedTopicIds, topicOrder, sequence, sheet })}
             className="w-full bg-primary hover:bg-primary/90"
           >
             <Calendar className="h-4 w-4 mr-2" />

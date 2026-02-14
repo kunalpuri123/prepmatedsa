@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { getAllProblems, dsaTopics, Problem } from '@/data/dsaProblems';
+import { getNeetcode250AllProblems, neetcode250Topics } from '@/data/neetcode250';
 import { supabase } from '@/integrations/supabase/client';
 import { awardCoins } from '@/lib/rewards';
 
@@ -55,7 +56,7 @@ export const useDSAProgress = (userId?: string) => {
     lastActiveDate: null,
     streakDates: [],
   });
-  const problemById = getAllProblems().reduce((acc, problem) => {
+  const problemById = [...getAllProblems(), ...getNeetcode250AllProblems()].reduce((acc, problem) => {
     acc[problem.id] = problem;
     return acc;
   }, {} as Record<string, Problem>);
@@ -432,13 +433,14 @@ export const useDSAProgress = (userId?: string) => {
     return dayPlans;
   };
 
-  const generatePlan = useCallback((options: { totalDays: number; topicIds: string[]; topicOrder: 'listed' | 'az' | 'za' | 'custom'; sequence: 'default' | 'easy' | 'hard' | 'random' }) => {
-    const { totalDays, topicIds, topicOrder, sequence } = options;
+  const generatePlan = useCallback((options: { totalDays: number; topicIds: string[]; topicOrder: 'listed' | 'az' | 'za' | 'custom'; sequence: 'default' | 'easy' | 'hard' | 'random'; sheet?: 'dsa' | 'nc250' }) => {
+    const { totalDays, topicIds, topicOrder, sequence, sheet = 'dsa' } = options;
     const startDate = new Date();
 
+    const topics = sheet === 'nc250' ? neetcode250Topics : dsaTopics;
     const selectedTopics = topicIds.includes('all') || topicIds.length === 0
-      ? dsaTopics
-      : dsaTopics.filter(t => topicIds.includes(t.id));
+      ? topics
+      : topics.filter(t => topicIds.includes(t.id));
 
     let orderedTopics = [...selectedTopics];
     if (topicOrder === 'az') {
@@ -450,9 +452,7 @@ export const useDSAProgress = (userId?: string) => {
       orderedTopics.sort((a, b) => (orderMap.get(a.id) ?? 0) - (orderMap.get(b.id) ?? 0));
     }
 
-    const problemsByTopic = orderedTopics.flatMap(topic =>
-      topic.patterns.flatMap(pattern => pattern.problems),
-    );
+    const problemsByTopic = orderedTopics.flatMap(topic => topic.patterns.flatMap(pattern => pattern.problems));
 
     let orderedProblems = [...problemsByTopic];
     if (sequence === 'easy') {
